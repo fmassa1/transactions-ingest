@@ -1,3 +1,5 @@
+namespace TransactionsIngest.Models;
+
 public class TransactionAudit 
 {
     public int Id { get; set; }
