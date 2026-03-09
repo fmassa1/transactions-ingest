@@ -29,7 +29,7 @@ public class TransactionService
             // If it exists checks if it has been updated
             if(existing.TryGetValue(trans.TransactionId, out var existingTrans))
             {
-
+                bool changed = false;
             }
             // Adds new transactions
             else 
@@ -47,6 +47,34 @@ public class TransactionService
                 });
             }
         }
+
+        var twentyFourHoursAgo = curTime.AddHours(-24);
+
+        // Revokes any transactions missing within the last 24 hours
+        var recentTransactions = await _db.Transactions
+            .Where(t => t.Timestamp >= twentyFourHoursAgo && t.Status == TransactionStatus.Active)
+            .ToListAsync();
+        
+        foreach (var trans in recentTransactions)
+        {
+            if (!transactionIds.Contains(trans.TransactionId))
+            {
+                trans.Status = TransactionStatus.Revoked;
+                trans.LastUpdated = curTime;
+            }
+        }
+
+        // Finalizes active transactions that are over 24 hours old
+        var toFinalizeTransactions = await _db.Transactions
+            .Where(t => t.Timestamp < twentyFourHoursAgo && t.Status == TransactionStatus.Active)
+            .ToListAsync();
+
+        foreach (var trans in toFinalizeTransactions) 
+        {
+            trans.Status = TransactionStatus.Finalized;
+            trans.LastUpdated = curTime;
+        }
+
         await _db.SaveChangesAsync();
         await dbTransaction.CommitAsync();
     }

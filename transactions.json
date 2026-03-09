@@ -78,5 +78,13 @@
       "productName": "Gaming Mousepad",
       "amount": 18.99,
       "timestamp": "2026-02-27T18:20:30Z"
+    },
+    {
+        "transactionId": "T-1011",
+        "cardNumber": "378282246310006",
+        "locationCode": "STO-03",
+        "productName": "Gaming Mousepad Pro",
+        "amount": 19.99,
+        "timestamp": "2026-03-09T17:58:30Z"
     }
 ]
