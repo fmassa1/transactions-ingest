@@ -22,9 +22,7 @@ var mockApi = new MockApiService(config);
 var transactions = mockApi.GetTransactions();
 
 Console.WriteLine("Loaded transactions:");
-foreach (var t in transactions)
-{
-    Console.WriteLine($"{t.TransactionId} | {t.ProductName} | {t.Amount:C} | {t.Timestamp}");
-}
+var transactionService = new TransactionService(db);
+transactionService.ProcessTransactions(transactions);
 
 Console.WriteLine("Done");

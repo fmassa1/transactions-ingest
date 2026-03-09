@@ -4,7 +4,6 @@ using System.Text.Json.Serialization;
 namespace TransactionsIngest.Models;
 
 public class TransactionDto
-
 {
     [JsonPropertyName("transactionId")]
     public string TransactionId { get; set; }
