@@ -1,0 +1,82 @@
+[
+    {
+      "transactionId": "T-1001",
+      "cardNumber": "4111111111111111",
+      "locationCode": "STO-01",
+      "productName": "Wireless Mouse",
+      "amount": 19.99,
+      "timestamp": "2026-02-27T08:50:10Z"
+    },
+    {
+      "transactionId": "T-1002",
+      "cardNumber": "4000000000000002",
+      "locationCode": "STO-02",
+      "productName": "USB-C Cable",
+      "amount": 25.0,
+      "timestamp": "2026-02-27T06:15:30Z"
+    },
+    {
+      "transactionId": "T-1003",
+      "cardNumber": "5555555555554444",
+      "locationCode": "STO-03",
+      "productName": "Keyboard",
+      "amount": 45.5,
+      "timestamp": "2026-02-27T09:10:05Z"
+    },
+    {
+      "transactionId": "T-1004",
+      "cardNumber": "378282246310005",
+      "locationCode": "STO-01",
+      "productName": "Laptop Stand",
+      "amount": 34.99,
+      "timestamp": "2026-02-27T11:30:00Z"
+    },
+    {
+      "transactionId": "T-1005",
+      "cardNumber": "6011111111111117",
+      "locationCode": "STO-04",
+      "productName": "Webcam",
+      "amount": 55.75,
+      "timestamp": "2026-02-27T12:45:20Z"
+    },
+    {
+      "transactionId": "T-1006",
+      "cardNumber": "3530111333300000",
+      "locationCode": "STO-02",
+      "productName": "External Hard Drive",
+      "amount": 79.99,
+      "timestamp": "2026-02-27T14:05:50Z"
+    },
+    {
+      "transactionId": "T-1007",
+      "cardNumber": "4111111111111111",
+      "locationCode": "STO-03",
+      "productName": "Monitor",
+      "amount": 129.99,
+      "timestamp": "2026-02-27T15:20:15Z"
+    },
+    {
+      "transactionId": "T-1008",
+      "cardNumber": "4000000000000002",
+      "locationCode": "STO-04",
+      "productName": "Wireless Charger",
+      "amount": 22.5,
+      "timestamp": "2026-02-27T16:40:00Z"
+    },
+    {
+      "transactionId": "T-1009",
+      "cardNumber": "5555555555554444",
+      "locationCode": "STO-01",
+      "productName": "Bluetooth Speaker",
+      "amount": 49.95,
+      "timestamp": "2026-02-27T17:55:45Z"
+    },
+    {
+      "transactionId": "T-1010",
+      "cardNumber": "378282246310005",
+      "locationCode": "STO-02",
+      "productName": "Gaming Mousepad",
+      "amount": 18.99,
+      "timestamp": "2026-02-27T18:20:30Z"
+    }
+]
