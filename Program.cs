@@ -23,6 +23,6 @@ var transactions = mockApi.GetTransactions();
 
 Console.WriteLine("Loaded transactions:");
 var transactionService = new TransactionService(db);
-transactionService.ProcessTransactions(transactions);
+await transactionService.ProcessTransactions(transactions);
 
 Console.WriteLine("Done");

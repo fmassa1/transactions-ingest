@@ -17,6 +17,8 @@ public class TransactionService
         await using var dbTransaction = await _db.Database.BeginTransactionAsync();
 
         var curTime = DateTime.UtcNow;
+        var audits = new List<TransactionAudit>();
+
 
         // Loads existing transactions to compare to new transactions
         var transactionIds = transactions.Select(t => t.TransactionId).ToList();
@@ -29,7 +31,48 @@ public class TransactionService
             // If it exists checks if it has been updated
             if(existing.TryGetValue(trans.TransactionId, out var existingTrans))
             {
-                bool changed = false;
+                if (existingTrans.Amount != trans.Amount)
+                {
+                    audits.Add(new TransactionAudit
+                    {
+                        TransactionId = trans.TransactionId,
+                        ChangeType = "Updated",
+                        ChangedField = "Amount",
+                        OldValue = existingTrans.Amount.ToString(),
+                        NewValue = trans.Amount.ToString(),
+                        UpdatedAt = curTime
+                    });
+                    existingTrans.Amount = trans.Amount;
+                }
+                if (existingTrans.LocationCode != trans.LocationCode)
+                {
+                    audits.Add(new TransactionAudit
+                    {
+                        TransactionId = trans.TransactionId,
+                        ChangeType = "Updated",
+                        ChangedField = "LocationCode",
+                        OldValue = existingTrans.LocationCode,
+                        NewValue = trans.LocationCode,
+                        UpdatedAt = curTime
+                    });
+                    existingTrans.LocationCode = trans.LocationCode;
+                }
+                if (existingTrans.ProductName != trans.ProductName)
+                {
+                    audits.Add(new TransactionAudit
+                    {
+                        TransactionId = trans.TransactionId,
+                        ChangeType = "Updated",
+                        ChangedField = "ProductName",
+                        OldValue = existingTrans.ProductName,
+                        NewValue = trans.ProductName,
+                        UpdatedAt = curTime
+                    });
+                    existingTrans.ProductName = trans.ProductName;
+                }
+
+                if (audits.Any(a => a.TransactionId == trans.TransactionId))
+                    existingTrans.LastUpdated = curTime;
             }
             // Adds new transactions
             else 
@@ -45,6 +88,16 @@ public class TransactionService
                     Status = TransactionStatus.Active,
                     LastUpdated = curTime
                 });
+
+                audits.Add(new TransactionAudit
+                {
+                    TransactionId = trans.TransactionId,
+                    ChangeType = "Created",
+                    ChangedField = "All",
+                    OldValue = null,
+                    NewValue = $"Amount={trans.Amount}, Location={trans.LocationCode}, Product={trans.ProductName}",
+                    UpdatedAt = curTime
+                });
             }
         }
 
@@ -59,6 +112,16 @@ public class TransactionService
         {
             if (!transactionIds.Contains(trans.TransactionId))
             {
+                audits.Add(new TransactionAudit
+                {
+                    TransactionId = trans.TransactionId,
+                    ChangeType = "StatusChange",
+                    ChangedField = "Status",
+                    OldValue = TransactionStatus.Active.ToString(),
+                    NewValue = TransactionStatus.Revoked.ToString(),
+                    UpdatedAt = curTime
+                });
+    
                 trans.Status = TransactionStatus.Revoked;
                 trans.LastUpdated = curTime;
             }
@@ -71,9 +134,21 @@ public class TransactionService
 
         foreach (var trans in toFinalizeTransactions) 
         {
+            audits.Add(new TransactionAudit
+            {
+                TransactionId = trans.TransactionId,
+                ChangeType = "StatusChange",
+                ChangedField = "Status",
+                OldValue = TransactionStatus.Active.ToString(),
+                NewValue = TransactionStatus.Finalized.ToString(),
+                UpdatedAt = curTime
+            });
+
             trans.Status = TransactionStatus.Finalized;
             trans.LastUpdated = curTime;
         }
+        if (audits.Count > 0)
+            await _db.Audits.AddRangeAsync(audits);
 
         await _db.SaveChangesAsync();
         await dbTransaction.CommitAsync();
