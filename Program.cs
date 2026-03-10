@@ -17,11 +17,9 @@ var options = new DbContextOptionsBuilder<AppDbContext>()
 using var db = new AppDbContext(options);
 db.Database.EnsureCreated();
 
-
 var mockApi = new MockApiService(config);
 var transactions = mockApi.GetTransactions();
 
-Console.WriteLine("Loaded transactions:");
 var transactionService = new TransactionService(db);
 await transactionService.ProcessTransactions(transactions);
 
