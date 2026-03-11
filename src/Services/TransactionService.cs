@@ -45,8 +45,9 @@ public class TransactionService
             }
         }
 
-        await HandleRevokedTransactions(transactionIds, audits, curTime);
         await HandleFinalizedTransactions(audits, curTime);
+        await HandleRevokedTransactions(transactionIds, audits, curTime);
+
         
         if (audits.Count > 0)
             await _db.Audits.AddRangeAsync(audits);
@@ -74,7 +75,7 @@ public class TransactionService
             "Created", 
             "All",
             null, 
-            $"Amount={trans.Amount}, Location={trans.LocationCode}, Product={trans.ProductName}", 
+            $"Amount={trans.Amount}, Location={trans.LocationCode}, Product={trans.ProductName}, CardNumberLast4={trans.CardNumber[^4..]}", 
             curTime
         ));
     }
@@ -124,6 +125,21 @@ public class TransactionService
             ));
 
             existing.ProductName = updated.ProductName;
+            changed = true;
+        }
+
+        if (existing.CardNumberLast4 != updated.CardNumber[^4..])
+        {
+            audits.Add(CreateAudit(
+                existing.TransactionId,
+                "Updated",
+                "CardNumberLast4",
+                existing.CardNumberLast4,
+                updated.CardNumber[^4..],
+                curTime
+            ));
+
+            existing.CardNumberLast4 = updated.CardNumber[^4..];
             changed = true;
         }
 

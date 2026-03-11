@@ -44,9 +44,9 @@ Output will indicate when processing has completed.
 ## Run Tests
 
 ```bash
+  cd TransactionIngest.Tests
   dotnet restore
   dotnet build
-  cd TransactionIngest.Tests
   dotnet test
 ```
 Tests run against an in-memory EF Core database to avoid modifying the SQLite database.
@@ -116,3 +116,4 @@ The ingestion service follows these steps:
 - Only the last four digits of the card number are stored for security.
 - Transactions older than 24 hours that remain active are automatically Finalized.
 - A transaction is marked Revoked when an active transaction from the last 24 hours disappears from the latest snapshot.
+- Revoked and Finalized transactions cannot be updated
