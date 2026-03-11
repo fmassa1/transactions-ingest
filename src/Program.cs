@@ -23,4 +23,4 @@ var transactions = mockApi.GetTransactions();
 var transactionService = new TransactionService(db);
 await transactionService.ProcessTransactions(transactions);
 
-Console.WriteLine("Done");
+Console.WriteLine("Finished Processing Transactions");

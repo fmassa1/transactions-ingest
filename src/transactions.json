@@ -1,6 +1,6 @@
 [
     {
-      "transactionId": "T-1001",
+      "transactionId": 1001,
       "cardNumber": "4111111111111111",
       "locationCode": "STO-01",
       "productName": "Wireless Mouse",
@@ -8,7 +8,7 @@
       "timestamp": "2026-02-27T08:50:10Z"
     },
     {
-      "transactionId": "T-1002",
+      "transactionId": 1002,
       "cardNumber": "4000000000000002",
       "locationCode": "STO-02",
       "productName": "USB-C Cable",
@@ -16,7 +16,7 @@
       "timestamp": "2026-02-27T06:15:30Z"
     },
     {
-      "transactionId": "T-1003",
+      "transactionId": 1003,
       "cardNumber": "5555555555554444",
       "locationCode": "STO-03",
       "productName": "Keyboard",
@@ -24,7 +24,7 @@
       "timestamp": "2026-02-27T09:10:05Z"
     },
     {
-      "transactionId": "T-1004",
+      "transactionId": 1004,
       "cardNumber": "378282246310005",
       "locationCode": "STO-01",
       "productName": "Laptop Stand",
@@ -32,7 +32,7 @@
       "timestamp": "2026-02-27T11:30:00Z"
     },
     {
-      "transactionId": "T-1005",
+      "transactionId": 1005,
       "cardNumber": "6011111111111117",
       "locationCode": "STO-04",
       "productName": "Webcam",
@@ -40,7 +40,7 @@
       "timestamp": "2026-02-27T12:45:20Z"
     },
     {
-      "transactionId": "T-1006",
+      "transactionId": 1006,
       "cardNumber": "3530111333300000",
       "locationCode": "STO-02",
       "productName": "External Hard Drive",
@@ -48,7 +48,7 @@
       "timestamp": "2026-02-27T14:05:50Z"
     },
     {
-      "transactionId": "T-1007",
+      "transactionId": 1007,
       "cardNumber": "4111111111111111",
       "locationCode": "STO-03",
       "productName": "Monitor",
@@ -56,7 +56,7 @@
       "timestamp": "2026-02-27T15:20:15Z"
     },
     {
-      "transactionId": "T-1008",
+      "transactionId": 1008,
       "cardNumber": "4000000000000002",
       "locationCode": "STO-04",
       "productName": "Wireless Charger",
@@ -64,7 +64,7 @@
       "timestamp": "2026-02-27T16:40:00Z"
     },
     {
-      "transactionId": "T-1009",
+      "transactionId": 1009,
       "cardNumber": "5555555555554444",
       "locationCode": "STO-01",
       "productName": "Bluetooth Speaker",
@@ -72,7 +72,7 @@
       "timestamp": "2026-02-27T17:55:45Z"
     },
     {
-      "transactionId": "T-1010",
+      "transactionId": 1010,
       "cardNumber": "378282246310005",
       "locationCode": "STO-02",
       "productName": "Gaming Mousepad",
@@ -80,7 +80,7 @@
       "timestamp": "2026-02-27T18:20:30Z"
     },
     {
-        "transactionId": "T-1011",
+        "transactionId": 1011,
         "cardNumber": "378282246310006",
         "locationCode": "STO-03",
         "productName": "Gaming Mousepad Pro",
@@ -88,7 +88,7 @@
         "timestamp": "2026-03-09T17:58:30Z"
     },
     {
-        "transactionId": "T-1012",
+        "transactionId": 1012,
         "cardNumber": "378282246310007",
         "locationCode": "STO-03",
         "productName": "Test Mousepad Pro",
@@ -96,7 +96,7 @@
         "timestamp": "2026-03-10T10:18:30Z"
     },
     {
-        "transactionId": "T-1013",
+        "transactionId": 1013,
         "cardNumber": "378282246310007",
         "locationCode": "STO-03",
         "productName": "Test Mousepad",
@@ -104,7 +104,7 @@
         "timestamp": "2026-03-09T10:20:30Z"
     },
     {
-        "transactionId": "T-1014",
+        "transactionId": 1014,
         "cardNumber": "378282246310007",
         "locationCode": "STO-03",
         "productName": "Test Mousepad",
@@ -112,7 +112,7 @@
         "timestamp": "2026-03-09T10:27:30Z"
     },
     {
-        "transactionId": "T-1017",
+        "transactionId": 1017,
         "cardNumber": "378282246310007",
         "locationCode": "STO-03",
         "productName": "Test Mousepad",
@@ -120,7 +120,7 @@
         "timestamp": "2026-03-10T16:40:30Z"
     },
     {
-        "transactionId": "T-1018",
+        "transactionId": 1018,
         "cardNumber": "378282246310008",
         "locationCode": "STO-04",
         "productName": "Test Mousepad Pro",
@@ -128,11 +128,19 @@
         "timestamp": "2026-03-10T16:40:30Z"
     },
     {
-        "transactionId": "T-1018",
+        "transactionId": 1018,
         "cardNumber": "378282246310008",
         "locationCode": "STO-04",
-        "productName": "Test Mousepad Pro",
+        "productName": "Test Mousepad Pro Plus",
         "amount": 129.99,
+        "timestamp": "2026-03-10T16:40:30Z"
+    },
+    {
+        "transactionId": 1019,
+        "cardNumber": "378282246310008",
+        "locationCode": "STO-04",
+        "productName": "Test Mousepad Pro Plus",
+        "amount": 1229.99,
         "timestamp": "2026-03-10T16:40:30Z"
     }
 ]

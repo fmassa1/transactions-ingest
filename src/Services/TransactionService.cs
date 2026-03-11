@@ -14,6 +14,12 @@ public class TransactionService
 
     public async Task ProcessTransactions(List<TransactionDto> transactions)
     {
+        // uses latest entry if there happens to be multiple per TransactionId
+        transactions = transactions
+            .GroupBy(t => t.TransactionId)
+            .Select(g => g.Last())
+            .ToList();
+
         await using var dbTransaction = await _db.Database.BeginTransactionAsync();
 
         var curTime = DateTime.UtcNow;
@@ -28,9 +34,10 @@ public class TransactionService
         foreach (var trans in transactions)
         {
             // If it exists checks if it has been updated
-            if(existing.TryGetValue(trans.TransactionId, out var existingTrans))
+            if (existing.TryGetValue(trans.TransactionId, out var existingTrans))
             {
-                HandleUpdateTransaction(existingTrans, trans, audits, curTime);
+                if (existingTrans.Status == TransactionStatus.Active)
+                    HandleUpdateTransaction(existingTrans, trans, audits, curTime);
             }
             else 
             {
@@ -53,7 +60,7 @@ public class TransactionService
         _db.Transactions.Add(new Transaction
         {
             TransactionId = trans.TransactionId,
-            CardNumber = trans.CardNumber,
+            CardNumberLast4 = trans.CardNumber[^4..],
             LocationCode = trans.LocationCode,
             ProductName = trans.ProductName,
             Amount = trans.Amount,
@@ -75,6 +82,7 @@ public class TransactionService
     private void HandleUpdateTransaction(Transaction existing, TransactionDto updated, List<TransactionAudit> audits, DateTime curTime)
     {
         bool changed = false;
+
         if (existing.Amount != updated.Amount)
         {
             audits.Add(CreateAudit(
@@ -123,7 +131,7 @@ public class TransactionService
             existing.LastUpdated = curTime;
     }
     
-    private async Task HandleRevokedTransactions(List<string> transactionIds, List<TransactionAudit> audits, DateTime curTime)
+    private async Task HandleRevokedTransactions(List<int> transactionIds, List<TransactionAudit> audits, DateTime curTime)
     {
         var cutOffTime = curTime.AddHours(-24);
 
@@ -175,7 +183,7 @@ public class TransactionService
     }
 
     private TransactionAudit CreateAudit(
-        string transactionId,
+        int transactionId,
         string changeType,
         string field,
         string? oldValue,
